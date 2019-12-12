@@ -1,28 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app" >
+        <router-view
+         @registration="onRegistration($event)"
+        ></router-view>
+        <Popup v-if="isShowPopup" @closePopup="onClosePopup" :title="popupTitle" />
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+/* eslint-disable no-console */
+import Popup from './components/Popup.vue';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    Popup,
+    },
+    data() {
+        return {
+            isShowPopup: false,
+            popupTitle: 'You have successfully registered'
+        }
+    },
+    methods: {
+        onRegistration(data) {
+            if (!data.success) {
+                this.popupTitle = data.message;
+            }
+            this.isShowPopup = true;
+        },
+        onClosePopup() {
+            this.isShowPopup = false;
+            this.$router.push({path: 'authorization'});
+        }
+    }
 }
-</script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+</script>

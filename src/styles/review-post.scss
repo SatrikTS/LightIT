@@ -1,0 +1,14 @@
+.review-post {
+    position: relative;
+
+    &__msg {
+        position: absolute;
+        padding: 15px;
+        background: #28a745;
+        width: 100%;
+        text-align: center;
+        top: 0;
+        left: 0;
+        color: #fff;
+    }
+}
